@@ -1,4 +1,4 @@
-name: Run API Tests with Newman on Windows
+name: Run API Tests with Newman
 
 on:
   push:
@@ -10,8 +10,22 @@ on:
 
 jobs:
   test-api:
-    runs-on: windows-latest  # Changed from ubuntu-latest to windows-latest
+    runs-on: windows-latest
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: List Files (Debugging Step)
+        run: dir
+
       - name: Run Postman Tests
         run: newman run Petst.json --reporters cli
