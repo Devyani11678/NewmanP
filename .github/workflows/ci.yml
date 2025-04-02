@@ -1,0 +1,17 @@
+name: Run API Tests with Newman on Windows
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-api:
+    runs-on: windows-latest  # Changed from ubuntu-latest to windows-latest
+
+    steps:
+      - name: Run Postman Tests
+        run: newman run Petst.json --reporters cli
