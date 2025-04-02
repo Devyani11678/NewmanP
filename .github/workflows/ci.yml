@@ -29,3 +29,12 @@ jobs:
 
       - name: Run Postman Tests
         run: newman run Petst.json --reporters cli
+
+      - name: Run Postman Tests and Generate Reports
+        run: newman run collection.json -e environment.json -r html,json
+
+      - name: Upload Test Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: newman-report
+          path: newman/*.html
