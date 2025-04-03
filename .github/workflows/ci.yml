@@ -24,5 +24,8 @@ jobs:
       - name: Install Newman
         run: npm install -g newman
 
+      - name: Install Newman and Reporters
+        run: npm install -g newman newman-reporter-html
+
       - name: Run Postman Tests
         run: newman run .github/workflows/petst.json -e .github/workflows/environment.json -r cli,html --reporter-html-export newman-report.html
