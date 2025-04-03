@@ -1,34 +1,31 @@
-name: Run API Tests with Newman
+name: Run Postman Tests on Windows
 
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - main  # Run on every push to main branch
 
 jobs:
-  test-api:
-    runs-on: windows-latest
+  postman-test:
+    runs-on: windows-latest  # Running on Windows machine
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+    - name: Checkout Code
+      uses: actions/checkout@v3
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
 
-      - name: Install Newman
-        run: npm install -g newman
+    - name: Install Newman
+      run: npm install -g newman newman-reporter-html
 
-      - name: List Files (Debugging Step)
-        run: dir
+    - name: Run API Tests with Newman
+      run: newman run Petst.json -e environment.json -r cli,html --reporter-html-export newman-report.html
 
-      - name: Run Postman Tests
-        run: newman run Petst.json --reporters cli
-
-      - name: Run Postman Tests and Generate Reports
-        run: newman run Petst.json -r html
+    - name: Upload Newman HTML Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: postman-test-report
+        path: newman-report.html
