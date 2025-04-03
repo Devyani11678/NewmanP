@@ -16,7 +16,7 @@ jobs:
     - name: Install Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18'
+        node-version: '22'
 
     - name: Install Newman & HTML Reporter
       run: npm install -g newman newman-reporter-html
@@ -26,7 +26,7 @@ jobs:
         newman run .github/workflows/petst.json -e .github/workflows/environment.json --reporters html --reporter-html-export newman-report.html
 
     - name: Upload Newman HTML Report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: postman-test-report
         path: newman-report.html
