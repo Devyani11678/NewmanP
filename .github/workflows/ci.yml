@@ -23,7 +23,7 @@ jobs:
 
     - name: Run API Tests with Newman
       run: |
-        newman run .github/workflows/petst.json -e .github/workflows/environment.json --reporters json --reporter-json-export newman-report.json --verbose
+        newman run .github/workflows/petst.json -e .github/workflows/environment.json --verbose
 
     - name: Upload Newman HTML Report
       uses: actions/upload-artifact@v4
